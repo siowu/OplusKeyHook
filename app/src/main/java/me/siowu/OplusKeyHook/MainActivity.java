@@ -73,7 +73,7 @@ public class MainActivity extends AppCompatActivity {
 
         ArrayAdapter<String> adapterCommon = new ArrayAdapter<>(
                 this, android.R.layout.simple_spinner_item,
-                new String[]{"微信付款码", "微信扫一扫", "支付宝付款码", "支付宝扫一扫", "云闪付付款码", "云闪付扫一扫", "一键闪记", "小布记忆"}
+                new String[]{"微信付款码", "微信扫一扫", "支付宝付款码", "支付宝扫一扫", "云闪付付款码", "云闪付扫一扫", "一键闪记", "小布记忆", "开关手电筒"}
         );
         adapterCommon.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         spinnerCommon.setAdapter(adapterCommon);
