@@ -81,7 +81,6 @@ public final class FlashlightToggleHelper {
 
     private static ToggleResult toggleWithShell(Boolean desiredState) {
         if (desiredState == null) {
-            // API 路径拿不到当前 torch 状态时，退回到纯切换命令
             return toggleUnknownStateWithShell();
         }
 
@@ -189,7 +188,6 @@ public final class FlashlightToggleHelper {
         }
 
         Integer maxStrengthLevel = getFlashStrengthMaximumLevel(cameraManager, cameraId);
-        // 支持亮度分级的设备在开灯时直接拉到最大亮度
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU
                 && maxStrengthLevel != null
                 && maxStrengthLevel > 1) {
@@ -205,7 +203,6 @@ public final class FlashlightToggleHelper {
             return flashStrengthMaximumLevel;
         }
 
-        // Android 13 之前没有 torch 亮度分级能力，只能做开关
         if (Build.VERSION.SDK_INT < Build.VERSION_CODES.TIRAMISU) {
             flashStrengthMaximumLevel = 1;
             return flashStrengthMaximumLevel;

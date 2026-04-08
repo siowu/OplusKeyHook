@@ -29,7 +29,6 @@ public class KeyHook {
     private boolean isLongPress = false;
     private static final long DOUBLE_CLICK_DELAY = 300;
     private static final long LONG_PRESS_TIME = 495;
-    // 手电筒切换串行执行，避免连续按键时并发写 torch 状态
     private static final ExecutorService FLASHLIGHT_EXECUTOR = Executors.newSingleThreadExecutor(r -> {
         Thread thread = new Thread(r, "flashlight-toggle");
         thread.setDaemon(true);
@@ -157,7 +156,6 @@ public class KeyHook {
         } else {
             XposedBridge.log("根据配置不需要震动反馈");
         }
-        XposedBridge.log("prefix: " + prefix);
         String type = sp.getString(prefix + "type", "");
         XposedBridge.log("当前快捷键类型: " + type);
         switch (type) {
@@ -215,7 +213,6 @@ public class KeyHook {
                 startActivity("com.oplus.aimemory", "com.oplus.aimemory.MainActivity");
                 break;
             case 8:
-                // 常用功能索引只追加，避免旧配置的 common_index 错位
                 toggleFlashlightAsync();
                 break;
         }
