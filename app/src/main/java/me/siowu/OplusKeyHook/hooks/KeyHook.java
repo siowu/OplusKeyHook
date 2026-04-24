@@ -150,21 +150,27 @@ public class KeyHook {
         String type = sp.getString(prefix + "type", "");
         XposedBridge.log("当前快捷键类型: " + type);
         switch (type) {
+            case "none":
             case "无":
                 XposedBridge.log("不执行任何操作");
                 break;
+            case "common":
             case "常用功能":
                 doCommonAction(prefix);
                 break;
+            case "custom_activity":
             case "自定义Activity":
                 doCustomActivity(prefix);
                 break;
+            case "custom_url_scheme":
             case "自定义UrlScheme":
                 doCustomUrlScheme(prefix);
                 break;
+            case "xiaobu_shortcut":
             case "执行小布快捷指令":
                 doXiaobuShortcuts(prefix);
                 break;
+            case "custom_shell":
             case "自定义Shell命令":
                 doCustomShell(prefix);
                 break;
