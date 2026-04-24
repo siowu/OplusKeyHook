@@ -1,3 +1,27 @@
 <resources>
     <string name="app_name">快捷键自定义</string>
+    <string name="label_gesture_type">选择事件类型</string>
+    <string name="label_action_type">选择快捷键功能</string>
+    <string name="label_common_action">选择常用功能</string>
+    <string name="label_package_name">包名</string>
+    <string name="label_activity">Activity</string>
+    <string name="label_url_scheme">URL Scheme</string>
+    <string name="label_xiaobu_shortcut_id">小布快捷指令ID</string>
+    <string name="label_shell_command">Shell命令</string>
+    <string name="label_vibrate_feedback">是否震动反馈</string>
+    <string name="label_execute_when_screen_off">息屏状态下是否执行操作</string>
+    <string name="action_save">保存设置</string>
+    <string name="action_authorize">去授权</string>
+    <string name="action_confirm">确定</string>
+    <string name="hint_package_name">例如：com.coolapk.market</string>
+    <string name="hint_activity">例如：com.coolapk.market.view.search.SuperSearchActivity</string>
+    <string name="hint_url_scheme">例如：weixin://</string>
+    <string name="hint_xiaobu_shortcut_id">抓取ID后，粘贴在这里</string>
+    <string name="hint_shell_command">输入要执行的命令</string>
+    <string name="message_activate_module_first">请先激活模块</string>
+    <string name="message_saved">已保存（3 秒后生效）</string>
+    <string name="message_root_granted">已被授予Root权限</string>
+    <string name="message_root_denied">已被拒绝Root权限，无法执行Shell命令</string>
+    <string name="dialog_title_notice">提示</string>
+    <string name="dialog_shell_permission_message">由于系统限制，执行Shell命令需要Root权限和自启动权限，否则无法执行。\n应用只会在执行命令的瞬间启动，执行完毕后自动退出，不会占用后台内存。\n在某些情况下，你可能还需要在应用详情的耗电管理中完全允许后台行为。</string>
 </resources>

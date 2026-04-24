@@ -32,7 +32,7 @@ public class MainActivity extends AppCompatActivity {
             runOnUiThread(() -> {
                 Toast.makeText(
                         MainActivity.this,
-                        "请先激活模块",
+                        R.string.message_activate_module_first,
                         Toast.LENGTH_LONG
                 ).show();
             });
@@ -58,7 +58,7 @@ public class MainActivity extends AppCompatActivity {
         // 手势选择
         ArrayAdapter<String> adapterGesture = new ArrayAdapter<>(
                 this, android.R.layout.simple_spinner_item,
-                new String[]{"短按", "双击", "长按"}
+                getResources().getStringArray(R.array.gesture_options)
         );
         adapterGesture.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         spinnerGesture.setAdapter(adapterGesture);
@@ -66,14 +66,14 @@ public class MainActivity extends AppCompatActivity {
         // 类型选择
         ArrayAdapter<String> adapterType = new ArrayAdapter<>(
                 this, android.R.layout.simple_spinner_item,
-                new String[]{"无", "常用功能", "执行小布快捷指令", "自定义Activity", "自定义UrlScheme", "自定义Shell命令"}
+                getResources().getStringArray(R.array.type_options)
         );
         adapterType.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         spinnerType.setAdapter(adapterType);
 
         ArrayAdapter<String> adapterCommon = new ArrayAdapter<>(
                 this, android.R.layout.simple_spinner_item,
-                new String[]{"微信付款码", "微信扫一扫", "支付宝付款码", "支付宝扫一扫", "云闪付付款码", "云闪付扫一扫", "一键闪记", "小布记忆"}
+                getResources().getStringArray(R.array.common_action_options)
         );
         adapterCommon.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         spinnerCommon.setAdapter(adapterCommon);
@@ -109,7 +109,7 @@ public class MainActivity extends AppCompatActivity {
     private void loadGestureConfig(int gesture) {
         String prefix = getPrefix(gesture);
 
-        spinnerType.setSelection(getTypeIndex(SPUtils.getString(prefix + "type", "无")));
+        spinnerType.setSelection(getTypeIndex(SPUtils.getString(prefix + "type", getTypeValue(0))));
         spinnerCommon.setSelection(SPUtils.getInt(prefix + "common_index", 0));
 
         editPackage.setText(SPUtils.getString(prefix + "package", ""));
@@ -128,7 +128,7 @@ public class MainActivity extends AppCompatActivity {
         int gesture = spinnerGesture.getSelectedItemPosition();
         String prefix = getPrefix(gesture);
 
-        SPUtils.putString(prefix + "type", (String) spinnerType.getSelectedItem());
+        SPUtils.putString(prefix + "type", getTypeValue(spinnerType.getSelectedItemPosition()));
         SPUtils.putInt(prefix + "common_index", spinnerCommon.getSelectedItemPosition());
         SPUtils.putString(prefix + "package", editPackage.getText().toString().trim());
         SPUtils.putString(prefix + "activity", editActivity.getText().toString().trim());
@@ -139,14 +139,14 @@ public class MainActivity extends AppCompatActivity {
         SPUtils.putBoolean(prefix + "vibrate", checkboxVibrate.isChecked());
         SPUtils.putBoolean(prefix + "screen_off", checkboxExecuteWhenScreenOff.isChecked());
 
-        Toast.makeText(this, "已保存（3 秒后生效）", Toast.LENGTH_SHORT).show();
+        Toast.makeText(this, R.string.message_saved, Toast.LENGTH_SHORT).show();
 
-        String type = (String) spinnerType.getSelectedItem();
+        String type = getTypeValue(spinnerType.getSelectedItemPosition());
         if (type.equals("自定义Shell命令")) {
             if (applyRootPermission()) {
-                Toast.makeText(this, "已被授予Root权限", Toast.LENGTH_SHORT).show();
+                Toast.makeText(this, R.string.message_root_granted, Toast.LENGTH_SHORT).show();
             } else {
-                Toast.makeText(this, "已被拒绝Root权限，无法执行Shell命令", Toast.LENGTH_SHORT).show();
+                Toast.makeText(this, R.string.message_root_denied, Toast.LENGTH_SHORT).show();
             }
             showShellPermissionDialog();
         }
@@ -181,6 +181,23 @@ public class MainActivity extends AppCompatActivity {
                 return 5;
             default:
                 return 0;
+        }
+    }
+
+    private String getTypeValue(int index) {
+        switch (index) {
+            case 1:
+                return "常用功能";
+            case 2:
+                return "执行小布快捷指令";
+            case 3:
+                return "自定义Activity";
+            case 4:
+                return "自定义UrlScheme";
+            case 5:
+                return "自定义Shell命令";
+            default:
+                return "无";
         }
     }
 
@@ -227,14 +244,14 @@ public class MainActivity extends AppCompatActivity {
 
     private void showShellPermissionDialog() {
         new AlertDialog.Builder(this)
-                .setTitle("提示")
-                .setMessage("由于系统限制，执行Shell命令需要Root权限和自启动权限，否则无法执行。\n应用只会在执行命令的瞬间启动，执行完毕后自动退出，不会占用后台内存。\n在某些情况下，你可能还需要在应用详情的耗电管理中完全允许后台行为。")
+                .setTitle(R.string.dialog_title_notice)
+                .setMessage(R.string.dialog_shell_permission_message)
                 .setCancelable(false)
-                .setNegativeButton("去授权", (dialog, which) -> {
+                .setNegativeButton(R.string.action_authorize, (dialog, which) -> {
                     // 继续执行跳转逻辑
                     gotoColorOSAutoStart();        // 自启动管理
                 })
-                .setPositiveButton("确定", null)
+                .setPositiveButton(R.string.action_confirm, null)
                 .show();
     }
 

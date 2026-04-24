@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">Shortcut Customization</string>
+    <string name="label_gesture_type">Select event type</string>
+    <string name="label_action_type">Select shortcut action</string>
+    <string name="label_common_action">Select common action</string>
+    <string name="label_package_name">Package name</string>
+    <string name="label_activity">Activity</string>
+    <string name="label_url_scheme">URL Scheme</string>
+    <string name="label_xiaobu_shortcut_id">Breeno shortcut ID</string>
+    <string name="label_shell_command">Shell command</string>
+    <string name="label_vibrate_feedback">Vibration feedback</string>
+    <string name="label_execute_when_screen_off">Run when screen is off</string>
+    <string name="action_save">Save settings</string>
+    <string name="action_authorize">Authorize</string>
+    <string name="action_confirm">OK</string>
+    <string name="hint_package_name">Example: com.coolapk.market</string>
+    <string name="hint_activity">Example: com.coolapk.market.view.search.SuperSearchActivity</string>
+    <string name="hint_url_scheme">Example: weixin://</string>
+    <string name="hint_xiaobu_shortcut_id">Paste the captured ID here</string>
+    <string name="hint_shell_command">Enter the command to execute</string>
+    <string name="message_activate_module_first">Please activate the module first</string>
+    <string name="message_saved">Saved (takes effect in 3 seconds)</string>
+    <string name="message_root_granted">Root permission granted</string>
+    <string name="message_root_denied">Root permission denied, shell commands cannot run</string>
+    <string name="dialog_title_notice">Notice</string>
+    <string name="dialog_shell_permission_message">Because of system restrictions, running shell commands requires both root permission and auto-start permission.\nThe app only starts when the command runs and exits automatically afterwards, so it will not stay in memory.\nIn some cases, you may also need to fully allow background activity in the battery settings.</string>
+</resources>
