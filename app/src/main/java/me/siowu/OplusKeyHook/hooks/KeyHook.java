@@ -4,10 +4,15 @@ import android.app.PendingIntent;
 import android.content.ComponentName;
 import android.content.Context;
 import android.content.Intent;
+import android.content.pm.PackageManager;
+import android.content.pm.ResolveInfo;
 import android.net.Uri;
+import android.os.Build;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.KeyEvent;
+
+import java.util.List;
 
 import de.robv.android.xposed.XSharedPreferences;
 import de.robv.android.xposed.XposedBridge;
@@ -150,21 +155,31 @@ public class KeyHook {
         String type = sp.getString(prefix + "type", "");
         XposedBridge.log("当前快捷键类型: " + type);
         switch (type) {
+            case "none":
             case "无":
                 XposedBridge.log("不执行任何操作");
                 break;
+            case "common":
             case "常用功能":
                 doCommonAction(prefix);
                 break;
+            case "open_app":
+            case "打开应用":
+                doOpenApp(prefix);
+                break;
+            case "custom_activity":
             case "自定义Activity":
                 doCustomActivity(prefix);
                 break;
+            case "custom_url_scheme":
             case "自定义UrlScheme":
                 doCustomUrlScheme(prefix);
                 break;
+            case "xiaobu_shortcut":
             case "执行小布快捷指令":
                 doXiaobuShortcuts(prefix);
                 break;
+            case "custom_shell":
             case "自定义Shell命令":
                 doCustomShell(prefix);
                 break;
@@ -217,6 +232,16 @@ public class KeyHook {
         startActivity(packageName, activity);
     }
 
+    public void doOpenApp(String prefix) {
+        sp.reload();
+        String packageName = sp.getString(prefix + "package", "");
+        if (packageName.isEmpty()) {
+            XposedBridge.log("打开应用包名为空");
+            return;
+        }
+        startApp(packageName);
+    }
+
     public void doCustomUrlScheme(String prefix) {
         sp.reload();
         String scheme = sp.getString(prefix + "url", "");
@@ -260,6 +285,52 @@ public class KeyHook {
             XposedBridge.log("成功启动指定Activity: " + targetActivity);
         } catch (Throwable t) {
             XposedBridge.log("启动指定Activity失败: " + t.getMessage());
+        }
+    }
+
+    private void startApp(String packageName) {
+        try {
+            Context systemContext = (Context) XposedHelpers.callStaticMethod(
+                    XposedHelpers.findClass("android.app.ActivityThread", null),
+                    "currentApplication"
+            );
+            if (systemContext == null) {
+                XposedBridge.log("startApp: systemContext == null");
+                return;
+            }
+
+            PackageManager packageManager = systemContext.getPackageManager();
+            Intent launchIntent = packageManager.getLaunchIntentForPackage(packageName);
+            if (launchIntent == null) {
+                launchIntent = packageManager.getLeanbackLaunchIntentForPackage(packageName);
+            }
+            if (launchIntent == null) {
+                Intent queryIntent = new Intent(Intent.ACTION_MAIN);
+                queryIntent.addCategory(Intent.CATEGORY_LAUNCHER);
+                queryIntent.setPackage(packageName);
+                List<ResolveInfo> resolveInfos;
+                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
+                    resolveInfos = packageManager.queryIntentActivities(queryIntent, PackageManager.ResolveInfoFlags.of(0));
+                } else {
+                    resolveInfos = packageManager.queryIntentActivities(queryIntent, 0);
+                }
+                if (!resolveInfos.isEmpty()) {
+                    ResolveInfo resolveInfo = resolveInfos.get(0);
+                    launchIntent = new Intent(Intent.ACTION_MAIN);
+                    launchIntent.addCategory(Intent.CATEGORY_LAUNCHER);
+                    launchIntent.setComponent(new ComponentName(resolveInfo.activityInfo.packageName, resolveInfo.activityInfo.name));
+                }
+            }
+            if (launchIntent == null) {
+                XposedBridge.log("startApp: 未找到可启动的入口 Activity -> " + packageName);
+                return;
+            }
+
+            launchIntent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TOP);
+            systemContext.startActivity(launchIntent);
+            XposedBridge.log("成功打开应用: " + packageName);
+        } catch (Throwable t) {
+            XposedBridge.log("startApp: failed to open app: " + t.getMessage());
         }
     }
 

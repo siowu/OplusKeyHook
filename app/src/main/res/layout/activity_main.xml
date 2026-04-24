@@ -14,7 +14,7 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="32dp"
             android:layout_marginBottom="8dp"
-            android:text="选择事件类型"
+            android:text="@string/label_gesture"
             android:textSize="16sp" />
 
         <Spinner
@@ -27,7 +27,7 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="16dp"
             android:layout_marginBottom="8dp"
-            android:text="选择快捷键功能"
+            android:text="@string/label_function"
             android:textSize="16sp" />
 
         <Spinner
@@ -47,7 +47,7 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="选择常用功能" />
+                android:text="@string/label_common_action" />
 
             <Spinner
                 android:id="@+id/spinnerCommon"
@@ -67,25 +67,66 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="包名" />
+                android:text="@string/label_app" />
 
-            <EditText
-                android:id="@+id/editPackage"
+            <Button
+                android:id="@+id/btnSelectApp"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:hint="例如：com.coolapk.market" />
+                android:text="@string/prompt_select_app"
+                android:textAllCaps="false" />
+
+            <LinearLayout
+                android:id="@+id/layoutActivitySelection"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:visibility="gone">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="8dp"
+                    android:text="@string/label_activity" />
+
+                <Button
+                    android:id="@+id/btnSelectActivity"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="@string/prompt_select_activity"
+                    android:textAllCaps="false" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="8dp"
+                    android:text="@string/label_selected_activity" />
+
+                <TextView
+                    android:id="@+id/textSelectedActivity"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="4dp"
+                    android:text="@string/not_selected"
+                    android:textColor="?android:attr/textColorSecondary"
+                    android:textSize="12sp" />
+            </LinearLayout>
 
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="8dp"
-                android:text="Activity" />
+                android:layout_marginTop="12dp"
+                android:text="@string/label_selected_package" />
 
-            <EditText
-                android:id="@+id/editActivity"
+            <TextView
+                android:id="@+id/textSelectedPackage"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:hint="例如：com.coolapk.market.view.search.SuperSearchActivity" />
+                android:layout_marginTop="4dp"
+                android:text="@string/not_selected"
+                android:textColor="?android:attr/textColorSecondary"
+                android:textSize="12sp" />
+
         </LinearLayout>
 
         <!-- 自定义 URL Scheme -->
@@ -100,13 +141,13 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="URL Scheme" />
+                android:text="@string/label_url_scheme" />
 
             <EditText
                 android:id="@+id/editUrlScheme"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:hint="例如：weixin://" />
+                android:hint="@string/hint_url_scheme" />
         </LinearLayout>
 
         <!-- 快捷指令ID -->
@@ -121,13 +162,13 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="小布快捷指令ID" />
+                android:text="@string/label_xiaobu_shortcut_id" />
 
             <EditText
                 android:id="@+id/editxiaobuShortcuts"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:hint="抓取ID后，粘贴在这里" />
+                android:hint="@string/hint_xiaobu_shortcut_id" />
         </LinearLayout>
 
         <!-- 快捷指令ID -->
@@ -142,13 +183,13 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Shell命令" />
+                android:text="@string/label_shell_command" />
 
             <EditText
                 android:id="@+id/editShell"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:hint="输入要执行的命令" />
+                android:hint="@string/hint_shell_command" />
         </LinearLayout>
 
         <CheckBox
@@ -157,7 +198,7 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="20dp"
             android:checked="true"
-            android:text="是否震动反馈" />
+            android:text="@string/label_vibrate_feedback" />
 
         <CheckBox
             android:id="@+id/checkboxExecuteWhenScreenOff"
@@ -165,13 +206,13 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="0dp"
             android:checked="true"
-            android:text="息屏状态下是否执行操作" />
+            android:text="@string/label_execute_when_screen_off" />
 
         <Button
             android:id="@+id/btnSave"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="24dp"
-            android:text="保存设置" />
+            android:text="@string/action_save" />
     </LinearLayout>
 </ScrollView>

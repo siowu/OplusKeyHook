@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical"
+    android:paddingTop="8dp">
+
+    <Button
+        android:id="@+id/btnRefreshActivities"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/action_refresh"
+        android:textAllCaps="false" />
+
+    <TextView
+        android:id="@+id/textActivityPickerStatus"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="12dp"
+        android:textColor="?android:attr/textColorSecondary"
+        android:visibility="gone" />
+
+    <ListView
+        android:id="@+id/listViewActivities"
+        android:layout_width="match_parent"
+        android:layout_height="400dp"
+        android:layout_marginTop="8dp"
+        android:dividerHeight="0dp" />
+
+</LinearLayout>
