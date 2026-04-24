@@ -1,0 +1,28 @@
+<resources>
+    <string-array name="gesture_options">
+        <item>한 번 누르기</item>
+        <item>두 번 누르기</item>
+        <item>길게 누르기</item>
+    </string-array>
+
+    <string-array name="type_options">
+        <item>없음</item>
+        <item>자주 쓰는 기능</item>
+        <item>앱 열기</item>
+        <item>Breeno 단축 명령 실행</item>
+        <item>사용자 지정 Activity</item>
+        <item>사용자 지정 URL 스킴</item>
+        <item>사용자 지정 Shell 명령</item>
+    </string-array>
+
+    <string-array name="common_action_options">
+        <item>WeChat 결제 코드</item>
+        <item>WeChat 스캔</item>
+        <item>Alipay 결제 코드</item>
+        <item>Alipay 스캔</item>
+        <item>UnionPay 결제 코드</item>
+        <item>UnionPay 스캔</item>
+        <item>Flash Notes</item>
+        <item>Breeno Memory</item>
+    </string-array>
+</resources>

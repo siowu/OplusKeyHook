@@ -5,7 +5,6 @@ import android.content.ClipboardManager;
 import android.content.Context;
 import android.os.Handler;
 import android.os.Looper;
-import android.widget.Toast;
 
 import de.robv.android.xposed.IXposedHookLoadPackage;
 import de.robv.android.xposed.XC_MethodHook;
@@ -71,9 +70,8 @@ public class ShortcutsHook implements IXposedHookLoadPackage {
                                     XposedBridge.log("成功获取到快捷方式信息 DES: " + des);
                                     XposedBridge.log("成功获取到快捷方式信息 ID: " + tag);
 
-                                    // 复制到剪贴板并显示Toast
                                     if (tag != null) {
-                                        copyToClipboardAndToast(tag);
+                                        copyToClipboard(tag);
                                     } else {
                                         XposedBridge.log("快捷方式ID为空");
                                     }
@@ -92,7 +90,7 @@ public class ShortcutsHook implements IXposedHookLoadPackage {
         }
     }
 
-    private void copyToClipboardAndToast(final String tag) {
+    private void copyToClipboard(final String tag) {
         if (mContext == null) {
             XposedBridge.log("ShortcutsHook: Context is still null, cannot copy to clipboard");
             return;
@@ -108,10 +106,6 @@ public class ShortcutsHook implements IXposedHookLoadPackage {
                         ClipboardManager clipboard = (ClipboardManager) mContext.getSystemService(Context.CLIPBOARD_SERVICE);
                         ClipData clip = ClipData.newPlainText("Shortcut Tag", tag);
                         clipboard.setPrimaryClip(clip);
-
-                        // 显示Toast
-                        String toastMessage = "快捷方式ID已复制到剪贴板";
-                        Toast.makeText(mContext, toastMessage, Toast.LENGTH_LONG).show();
 
                         XposedBridge.log("快捷方式ID复制成功");
                     } catch (Exception e) {

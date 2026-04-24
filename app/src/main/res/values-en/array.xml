@@ -1,0 +1,28 @@
+<resources>
+    <string-array name="gesture_options">
+        <item>Single press</item>
+        <item>Double press</item>
+        <item>Long press</item>
+    </string-array>
+
+    <string-array name="type_options">
+        <item>None</item>
+        <item>Common action</item>
+        <item>Open app</item>
+        <item>Run Breeno shortcut</item>
+        <item>Custom activity</item>
+        <item>Custom URL scheme</item>
+        <item>Custom shell command</item>
+    </string-array>
+
+    <string-array name="common_action_options">
+        <item>WeChat payment code</item>
+        <item>WeChat scan</item>
+        <item>Alipay payment code</item>
+        <item>Alipay scan</item>
+        <item>UnionPay payment code</item>
+        <item>UnionPay scan</item>
+        <item>Flash Notes</item>
+        <item>Breeno Memory</item>
+    </string-array>
+</resources>
