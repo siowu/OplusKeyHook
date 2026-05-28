@@ -74,7 +74,7 @@ public class MainActivity extends AppCompatActivity {
         // 类型选择
         ArrayAdapter<String> adapterType = new ArrayAdapter<>(
                 this, android.R.layout.simple_spinner_item,
-                new String[]{"无", "常用功能", "执行小布快捷指令", "自定义Activity", "自定义UrlScheme", "自定义Shell命令"}
+                new String[]{"无", "常用功能", "打开应用", "执行小布快捷指令", "自定义Activity", "自定义UrlScheme", "自定义Shell命令"}
         );
         adapterType.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         spinnerType.setAdapter(adapterType);
@@ -175,14 +175,16 @@ public class MainActivity extends AppCompatActivity {
                 return 0;
             case "常用功能":
                 return 1;
-            case "执行小布快捷指令":
+            case "打开应用":
                 return 2;
-            case "自定义Activity":
+            case "执行小布快捷指令":
                 return 3;
-            case "自定义UrlScheme":
+            case "自定义Activity":
                 return 4;
-            case "自定义Shell命令":
+            case "自定义UrlScheme":
                 return 5;
+            case "自定义Shell命令":
+                return 6;
             default:
                 return 0;
         }
@@ -200,15 +202,18 @@ public class MainActivity extends AppCompatActivity {
                 layoutCommon.setVisibility(View.VISIBLE);
                 break;
             case 2:
-                layoutxiaobuShortcuts.setVisibility(View.VISIBLE);
-                break;
-            case 3:
                 layoutCustomActivity.setVisibility(View.VISIBLE);
                 break;
+            case 3:
+                layoutxiaobuShortcuts.setVisibility(View.VISIBLE);
+                break;
             case 4:
-                layoutUrlScheme.setVisibility(View.VISIBLE);
+                layoutCustomActivity.setVisibility(View.VISIBLE);
                 break;
             case 5:
+                layoutUrlScheme.setVisibility(View.VISIBLE);
+                break;
+            case 6:
                 layoutShell.setVisibility(View.VISIBLE);
                 break;
         }
